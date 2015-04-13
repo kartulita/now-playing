@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" ng-app="demo">
+<head>
+<title>Show viewer demo</title>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../">
+<!-- ETV stylesheet -->
+<link rel="stylesheet" href="http://etv.err.ee/Content/less/theme/etv/bootstrap.less">
+<!-- Dependencies -->
+<link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css">
+<link rel="stylesheet" href="bower_components/icomoon/dist/css/style.css">
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<!-- Error alerter -->
+<script src="../utils/errors.js"></script>
+<!-- AJAX proxy for demos only -->
+<script src="../ajax-proxy/client.js"></script>
+<!-- Now playing -->
+<link rel="stylesheet/less" href="../now-playing/style.less" type="text/css">
+<script src="../now-playing/module.js"></script>
+<script src="../now-playing/now-playing-controller.js"></script>
+<script src="../now-playing/now-playing-directive.js"></script>
+<!-- Demo -->
+<script>
+(function (angular) {
+	'use strict';
+
+	angular.module('demo', ['battlesnake.now-playing'])
+		.controller('demoController', demoController);
+
+	function demoController($scope) {
+		$scope.model = {
+			title: 'Now-playing demo',
+			adapter: mockAdapter(),
+			nowPlaying: null,
+			empty: false
+		};
+		$scope.resetValue = resetValue;
+		return;
+
+		function resetValue() {
+			$scope.model.nowPlaying = null;
+		}
+
+		function mockAdapter() {
+			return {
+				delayNoUpdate: 500,
+				delayUpdate: 3000,
+				update: update
+			};
+		}
+
+		function update() {
+			return {
+				empty: $scope.model.empty,
+				caption: $scope.model.nowPlaying
+			};
+		}
+
+	}
+
+})(window.angular);
+</script>
+<style>
+body {
+	font-family: sans-serif;
+	margin: 60px 0;
+	overflow-y: scroll;
+}
+.header,
+.now-playing {
+	box-shadow: 0px 0px 12px 3px rgba(90, 90, 90, 0.5);
+}
+.header>* {
+	margin: 60px;
+	display: block;
+}
+.header {
+	border-top: 1px solid #aaa;
+}
+.schedule {
+	overflow: visible;
+}
+</style>
+</head>
+<body ng-controller="demoController">
+<div>
+	<div class="container header">
+		<h1 class="row" ng-bind="model.title" id="title"></h1>
+		<div>
+			<div class="row">
+				<label>Currently playing<br/>
+					<input type="text" ng-model="model.nowPlaying">
+					<input type="reset" ng-click="resetValue()">
+				</label>
+			</div>
+			<div class="row">
+				<label>Hidden<br/>
+					<input type="checkbox" ng-model="model.empty" ng-true-value="true" ng-false-value="false">
+				</label>
+			</div>
+		</div>
+	</div>
+	<!-- Here we go -->
+	<div now-playing="model.adapter" class="now-playing kartulita full-width"></div>
+	<!-- That's all there is to it! -->
+</div>
+</body>
+<script src="bower_components/less/dist/less.min.js"></script>
+</html>

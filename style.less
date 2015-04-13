@@ -1,0 +1,117 @@
+@now-playing-background-color: #3b4257;
+@now-playing-text-color: #eee;
+
+@now-playing-padding-l: 16px;
+@now-playing-padding-m: 12px;
+@now-playing-padding-s: 8px;
+
+@now-playing-icon-size-l: 20px;
+@now-playing-icon-size-m: 18px;
+@now-playing-icon-size-s: 14px;
+
+@now-playing-icon-spacing-l: 6px;
+@now-playing-icon-spacing-m: 6px;
+@now-playing-icon-spacing-s: 4px;
+
+@now-playing-text-size-l: 18px;
+@now-playing-text-size-m: 16px;
+@now-playing-text-size-s: 14px;
+
+.kartulita .now-playing {
+
+.calculate-geometry(
+	@padding,
+	@icon-size,
+	@icon-spacing,
+	@text-size)
+{
+	@now-playing-padding: (@padding);
+	@now-playing-icon-size: (@icon-size);
+	@now-playing-icon-spacing: (@icon-spacing);
+	@now-playing-text-size: (@text-size);
+}
+
+.geometry-l(@rules) {
+	.calculate-geometry(
+		@now-playing-padding-l,
+		@now-playing-icon-size-l,
+		@now-playing-icon-spacing-l,
+		@now-playing-text-size-l
+	);
+	@rules();
+}
+
+.geometry-m(@rules) {
+	.calculate-geometry(
+		@now-playing-padding-m,
+		@now-playing-icon-size-m,
+		@now-playing-icon-spacing-m,
+		@now-playing-text-size-m
+	);
+	@rules();
+}
+
+.geometry-s(@rules) {
+	.calculate-geometry(
+		@now-playing-padding-s,
+		@now-playing-icon-size-s,
+		@now-playing-icon-spacing-s,
+		@now-playing-text-size-s
+	);
+	@rules();
+}
+
+.responsive(@rules) {
+	@media all {
+		.geometry-l(@rules);
+	}
+	@media only screen and (min-width: 768px) and (max-width: 1280px) {
+		.geometry-m(@rules);
+	}
+	@media only screen and (max-width: 768px) {
+		.geometry-s(@rules);
+	}
+}
+
+/* Stylesheet begins */
+
+background: (@now-playing-background-color);
+
+.responsive({
+	padding: (@now-playing-padding);
+});
+
+&.empty {
+	display: none;
+}
+
+.now-playing-text-container {
+	color: (@now-playing-text-color);
+	.responsive({
+		font-size: (@now-playing-text-size);
+	});
+
+	.media-icon {
+		display: inline-block;
+		vertical-align: middle;
+		padding: 0;
+		box-shadow: none;
+		float: none;
+		.responsive({
+			margin: 0 (@now-playing-icon-spacing) 0 0;
+			font-size: (@now-playing-icon-size);
+		});
+	}
+
+	a, a:link, a:hover, a:visited {
+		color: inherit;
+		text-style: inherit;
+	}
+
+	.now-playing-text {
+		vertical-align: middle;
+	}
+
+}
+
+}
