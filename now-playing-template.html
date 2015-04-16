@@ -2,7 +2,7 @@
 <div class="now-playing" ng-class="{ 'empty': model.empty }">
 	<!-- Extra container provided for CSS marquee and other tricks -->
 	<span class="now-playing-text-container">
-		<i class="media-icon icomoon-play now-playing-play-icon"></i>
+		<i class="icomoon-play now-playing-play-icon"></i>
 		<a class="now-playing-text" ng-href="{{ model.data.url }}" target="_blank" ng-if="model.data.url">{{ model.caption }}</a>
 		<span class="now-playing-text" ng-if="!model.data.url">{{ model.caption }}</span>
 	</span>
