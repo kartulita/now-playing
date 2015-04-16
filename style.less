@@ -102,14 +102,19 @@ background: (@now-playing-background-color);
 			margin: 0 (@now-playing-icon-spacing) 0 0;
 			font-size: (@now-playing-icon-size);
 		});
+
+		&:before {
+			display: inline-block;
+			vertical-align: middle;
+		}
 	}
 
 	a, a:link, a:hover, a:visited {
 		color: inherit;
-		text-style: inherit;
 	}
 
 	.now-playing-text {
+		line-height: 1;
 		vertical-align: middle;
 	}
 
